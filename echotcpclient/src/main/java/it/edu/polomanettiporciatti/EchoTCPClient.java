@@ -34,15 +34,6 @@ public class EchoTCPClient {
 			System.exit(1);
 		}
 
-		System.out.println("Inserisci la stringa da inviare al server: ");
-
-		try {
-			stringaUtente = tastiera.readLine();
-		} catch (IOException e) {
-			System.err.println("Errore di lettura da tastiera");
-			System.exit(2);
-		}
-
 		BufferedReader in = null;
 		try {
 			in = new BufferedReader(new InputStreamReader(s.getInputStream()));
@@ -58,19 +49,38 @@ public class EchoTCPClient {
 			System.err.println("Errore di scrittura sul socket");
 			System.exit(4);
 		}
+		
+		System.out.println("Inserisci la stringa da inviare al server: ");
+		try{
+			while((stringaUtente = tastiera.readLine())!=null){
 
-		out.println(stringaUtente);
+				out.println(stringaUtente);
 
-		String stringaRicevuta = null;
-		try {
-			stringaRicevuta = in.readLine();
-		} catch (IOException e) {
-			System.err.println("Errore di lettura dal socket");
-			System.exit(5);
+				String stringaRicevuta = null;
+				try {
+					stringaRicevuta = in.readLine();
+				} catch (IOException e) {
+					System.err.println("Errore di lettura dal socket");
+					System.exit(5);
+				}
+
+				System.out.println("Ricevuto: " + stringaRicevuta);
+
+				System.out.println("Inserisci la stringa da inviare al server: ");
+
+			}
+		}catch(IOException e){
+			System.err.println("Errore di lettura da tastiera");
+			System.exit(2);
 		}
 
-		System.out.println("Ricevuto: " + stringaRicevuta);
+		try {
+			s.close();
+		} catch (IOException e) {
+			System.err.println("Errore di chiusura del socket");
+			System.exit(6);
+		}
 
-    }
+    } // main
 
-}
+} // EchoTCPClient

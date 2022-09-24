@@ -1,0 +1,6 @@
+Reti Ethernet
+(LAN cablate in rame)
+LAN: Local Area Network
+
+C0:AA:23:18:0B:F1
+Indirizzo MAC: univoco a livello globale (in teoria)

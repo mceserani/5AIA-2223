@@ -46,14 +46,6 @@ public class EchoTCPServerS {
                 continue;       
             }
 
-            String inputLine = null;
-            try {
-                inputLine = in.readLine();
-            } catch (IOException e) {
-                System.err.println("Cannot read from socket.");
-                continue;
-            }
-
             PrintWriter out = null;
             try {
                 out = new PrintWriter(socket.getOutputStream(), true);
@@ -62,7 +54,15 @@ public class EchoTCPServerS {
                 continue;      
             }
 
-            out.println(inputLine);
+            String inputLine = null;
+            try {
+                while((inputLine = in.readLine())!=null){
+                    out.println(inputLine);
+                }
+            } catch (IOException e) {
+                System.err.println("Cannot read from socket.");
+                continue;
+            }
 
             try {
                 socket.close();
